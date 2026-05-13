@@ -1,8 +1,6 @@
-import { MaterialIconButton } from "@/components/buttons/icon-button";
 import { useLLM, useSystem } from "@/context";
 import * as DocumentPicker from "expo-document-picker";
 import * as FileSystem from "expo-file-system";
-import * as Sharing from "expo-sharing";
 import { useCallback, useRef, useState } from "react";
 import {
   ActivityIndicator,
@@ -388,11 +386,10 @@ function Translate() {
       encoding: FileSystem.EncodingType.UTF8,
     });
 
-    if (await Sharing.isAvailableAsync()) {
-      await Sharing.shareAsync(outPath, { mimeType: "text/plain" });
-    } else {
-      Alert.alert("Saved", `File written to:\n${outPath}`);
-    }
+    Alert.alert(
+      "已保存",
+      `翻译结果已写入应用文档目录：\n${outName}\n\n可通过文件管理器在「内部存储/Android/data/…/files」下找到该文件。`
+    );
   };
 
   // ── styles ─────────────────────────────────────────────────────────────────
